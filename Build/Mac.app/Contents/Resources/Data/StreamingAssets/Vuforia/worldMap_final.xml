@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="australia5" size="0.080000 0.060000" />
+    <ImageTarget name="australia4" size="0.080000 0.060000" />
+    <ImageTarget name="australia3" size="0.080000 0.060000" />
+    <ImageTarget name="australia2" size="0.080000 0.060000" />
+    <ImageTarget name="australia1" size="0.080000 0.060000" />
+    <ImageTarget name="australia0" size="0.080000 0.060000" />
+    <ImageTarget name="image5" size="0.080000 0.094247" />
+    <ImageTarget name="image4" size="0.080000 0.093596" />
+    <ImageTarget name="image0" size="0.080000 0.102018" />
+    <ImageTarget name="image1" size="0.080000 0.092725" />
+    <ImageTarget name="image3" size="0.080000 0.104501" />
+    <ImageTarget name="image2" size="0.080000 0.097005" />
+  </Tracking>
+</QCARConfig>

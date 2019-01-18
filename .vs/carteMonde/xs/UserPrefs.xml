@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{8FEB95FD-66F6-4608-25F1-21AF5EFDE215}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/SCRIPTs/AfricaTrackableEventHandler.cs">
+    <Files>
+      <File FileName="Assets/SCRIPTs/TrackableEventHandler_Africa.cs" Line="18" Column="42" />
+      <File FileName="Assets/SCRIPTs/AfricaTrackableEventHandler.cs" Line="257" Column="35" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
