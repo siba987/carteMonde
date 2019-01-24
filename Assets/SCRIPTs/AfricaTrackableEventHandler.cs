@@ -10,6 +10,7 @@ using UnityEngine;
 using Vuforia;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// A custom handler that implements the ITrackableEventHandler interface.
@@ -26,7 +27,9 @@ public class AfricaTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
     public float startTime; //makes one instance of it
     public bool startTimer = false;
     public bool stopTimer = false;
-    private bool pauseTimer = false;
+    public bool pauseTimer = false;
+
+    // private bool pauseTimer = false;
 
     //declare global var
     string minutes;
@@ -105,7 +108,8 @@ public class AfricaTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
         var canvasComponents = GetComponentsInChildren<Canvas>(true);
 
         // Enable rendering:
-        foreach (var component in rendererComponents){
+        foreach (var component in rendererComponents)
+        {
             component.enabled = true;
             obj = component;
         }
@@ -119,31 +123,37 @@ public class AfricaTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
             component.enabled = true;
 
         Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
-        if ((mTrackableBehaviour.TrackableName == "africaB0") || 
+
+            
+
+            if (timerText != null)
+            {
+                //check for continent outline
+                if (mTrackableBehaviour.TrackableName == "africaB0"||
             (mTrackableBehaviour.TrackableName == "africaB1") ||
             (mTrackableBehaviour.TrackableName == "africaB2") ||
             (mTrackableBehaviour.TrackableName == "africaB3") ||
-            (mTrackableBehaviour.TrackableName == "africaB4")){
-            Debug.Log(">>> inside B0 ");
-            EnableItem();        
+            (mTrackableBehaviour.TrackableName == "africaB4"))
+               
+               {
+
+                EnableItem();
+
+                Debug.Log(">>>calls ResumeTimer()");
+                    StartTimer();
+                    //startTimer = true;
+                }
+
+                // added to stop timer
+                if (mTrackableBehaviour.TrackableName == "africaB5")
+                {
+
+                    Debug.Log(">>> Stop timer");
+                    stopTimer = true;
+
+                }
+            }
         }
-
-        //check for continent outline
-        if (mTrackableBehaviour.TrackableName == "africaB0")
-        {
-            Debug.Log(">>>Start timer");
-            startTimer = true;
-        }
-
-        // added to stop timer
-        if (mTrackableBehaviour.TrackableName == "africaB5")
-        {
-
-            Debug.Log(">>>(AT)Stop timer");
-            stopTimer = true;
-
-        }
-    }
 
 
     protected virtual void OnTrackingLost()
@@ -164,43 +174,43 @@ public class AfricaTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
         foreach (var component in canvasComponents)
             component.enabled = false;
 
-      //  pauseTimer = true;
+        pauseTimer = true;
+        startTimer = false;
+        //stopTimer = true;
+        timerText.GetComponent<Text> ().text = "timer paused" ;
 
     }
 
     public void EnableItem(){
         if(coroutine != null){ return; }
-         Debug.Log(">>> couroutine 0 ");
+       //  Debug.Log(">>> couroutine 0 ");
         coroutine = ShowItem();
-        Debug.Log(">>> couroutine 1 ");
+       // Debug.Log(">>> couroutine 1 ");
         StartCoroutine(coroutine);
       }
       private IEnumerator ShowItem(){
            //firstObj.SetActive(true);
-          Debug.Log(">>> ShowItem 0 ");
+        //  Debug.Log(">>> ShowItem 0 ");
            yield return new WaitForSeconds(2f);
-           Debug.Log(">>> ShowItem 5s ");
+        //   Debug.Log(">>> ShowItem 5s ");
            if(obj != null){
                 obj.enabled = false;
-                Debug.Log(">>> obj false ");
+           //    Debug.Log(">>> obj false ");
             }
                  StopCoroutine(coroutine);
                  coroutine = null;
-           //firstObj.SetActive(false);
-           //secondObj.SetActive(true);
       }
       // This is called from the tracking script when losing track
       public void DisableItem(){
             StopCoroutine(coroutine);
             coroutine = null;
-            //firstObj.SetActive(false);
-            //secondObj.SetActive(false);
       }
 
     /* added methods*/
     //Start Timer
     public void StartTimer()
     {
+        startTimer = true; //SS
         //Start Timer Here
         startTime = Time.time;
         Debug.Log("Timer Started");
@@ -212,28 +222,28 @@ public class AfricaTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 
         if (startTimer)
         {
-            Debug.Log("*************");
+            Debug.Log(">> enter Update() fn");
             float t = Time.time - startTime; //stores time since timer has started
             minutes = ((int)t / 60).ToString();
             seconds = (t % 60).ToString("f2"); //shows ms
 
             timerText.text = minutes + ":" + seconds;
         }
-        else if (stopTimer)
-        {
-            startTimer = false;
-            Debug.Log(">>> FINALEMENT!!! ONA  REUSSI");
-            StopTimer();
-
-            stopTimer = false;
-
-        }
         else if (pauseTimer)
         {
-            PauseTimer();
-            pauseTimer = false;
+            startTimer = false;
+
+            // PauseTimer();
+            timerText.text = minutes + ":" + seconds;
+            Debug.Log("startTimer:"+ startTimer);
 
         }
+     /*   else if (stopTimer)
+        {
+            StopTimer();
+            stopTimer = false;
+
+        }*/
     }
 
     //Reset Timer

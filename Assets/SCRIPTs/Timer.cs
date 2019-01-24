@@ -2,13 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using Vuforia;
+using System;
 
-public class Timer : MonoBehaviour {
+public class Timer : MonoBehaviour, ITrackableEventHandler
+{
 
+    private TrackableBehaviour mTrackableBehaviour;
+    // public Transform myModelPrefab;
     public Text timerText;
-    public static float startTime; //makes one instance of it
+    private float startTime; //makes one instance of it
     public static bool pauseTimer = false;
     public static bool startTimer = false;
+
+    // define variables
+    string minutes;
+    string seconds;
 
     /* Use this for initialization
     void Start () {
@@ -20,23 +29,23 @@ public class Timer : MonoBehaviour {
     {
         //Start Timer Here
         startTime = Time.time;
-        Debug.Log("Timer Started");
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (pauseTimer)
             return;
         if (startTimer)
         {
             float t = Time.time - startTime; //stores time since timer has started
-            string minutes = ((int)t / 60).ToString();
-            string seconds = (t % 60).ToString("f2"); //shows ms
+             minutes = ((int)t / 60).ToString();
+             seconds = (t % 60).ToString("f2"); //shows ms
 
             timerText.text = minutes + ":" + seconds;
         }
-            
-	}
+
+    }
 
     //Reset Timer
     public void ResetTimer()
@@ -54,4 +63,35 @@ public class Timer : MonoBehaviour {
         Debug.Log("Timer Stopped");
     }
 
+    public void OnTrackableStateChanged(TrackableBehaviour.Status previousStatus, TrackableBehaviour.Status newStatus)
+    {
+        if (newStatus == TrackableBehaviour.Status.DETECTED ||
+         newStatus == TrackableBehaviour.Status.TRACKED ||
+         newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
+        {
+            OnTrackingFound();
+        }
+        else
+        {
+            // pause timer
+
+            StopTimer();
+        }
+    }
+
+    private void OnTrackingFound()
+    {
+        if (timerText != null)
+        {
+
+            if (mTrackableBehaviour.TrackableName == "africaB0")
+            {
+                Debug.Log(">>>Start timer");
+                startTimer = true;
+            }
+            Debug.Log("Timer Started");
+            //Text newTimer = GameObject.Instantiate(timerText) as Text;
+            //newTimer.parent = mTrackableBehaviour.transform;
+        }
+    }
 }
