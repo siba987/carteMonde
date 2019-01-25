@@ -238,12 +238,12 @@ public class AfricaTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
             Debug.Log("startTimer:"+ startTimer);
 
         }
-     /*   else if (stopTimer)
+        else if (stopTimer)
         {
             StopTimer();
-            stopTimer = false;
+            //stopTimer = false;
 
-        }*/
+        }
     }
 
     //Reset Timer
@@ -251,18 +251,6 @@ public class AfricaTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
     {
         startTime = 0;
         Debug.Log("Timer Reset");
-    }
-
-
-    //Stop Timer
-    public void StopTimer()
-    {
-        //Stop Timer Here
-        //to be chanaged later
-        Debug.Log("Timer Stopped");
-        PauseTimer();
-
-
     }
 
     //Pause timer
@@ -274,5 +262,14 @@ public class AfricaTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
         //        timerText.color = Color.cyan;
     }
 
+    //Stop Timer
+    public void StopTimer()
+    {
+        //Stop Timer Here
+        //to be chanaged later
+        Debug.Log("Timer Stopped");
+        timerText.enabled = false;
+    }
+
     #endregion // PROTECTED_METHODS
- }
+}
